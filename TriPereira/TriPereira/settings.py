@@ -25,7 +25,7 @@ SECRET_KEY = '(+kw_a$lkbj@8t^x8+x%(%8*q7w8^#4c&ays*=ld4()qef9!-u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Destinos',
+    'social.apps.django_app.default',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -81,6 +84,12 @@ DATABASES = {
     }
 }
 
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social.backends.twitter.TwitterOAuth',
+    
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -119,3 +128,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
+
+
+
+SOCIAL_AUTH_GITHUB_KEY = '66dae8074adc9311b9d2'
+SOCIAL_AUTH_GITHUB_SECRET = '94e22bdb3c2a86b5b65170b3d5dd8c6c9336f0a0'
+
+SOCIAL_AUTH_TWITTER_KEY = 'rYAQxMduXBAcb9RegQjge6b2s'
+SOCIAL_AUTH_TWITTER_SECRET = 'jBGmhgYk3mALwasQt61jd1fav3ATy3rU9QuDPha1P7lUTfJGHL'

@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -100,34 +101,24 @@
                 <div class="cleaner_h10"></div>
 				
                 <div class="col_380 float_l">
-                  <h1>Informacion Del Destino</h1>
+                  <h1>Social Connect</h1>
         <form action="#home" method="POST">
             <table>
-                <tr>
-                    <td>Destino ID</td>
-                    <td><input type="text" name="destinoId" value="" /></td>
-                </tr>
-                <tr>
-                    <td>Nombre Del Destino</td>
-                    <td><input type="text" name="nombre" value="" /></td>
-                </tr>
-                <tr>
-                    <td>Descripcion Del Destino</td>
-                    <td><input type="text" name="informacion" value="" /></td>
-                </tr>
-                <tr>
-                    <td>Precio Del Viaje</td>
-                    <td><input type="text" name="precio" value="" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="action" value="Add" />
-                        <input type="submit" name="action" value="Edit" />
-                        <input type="submit" name="action" value="Delete" />
-                        <input type="submit" name="action" value="Search" />
-                    </td>                
-                </tr>            
+
+              
+                
+
+                
+
+               <h3>Twitter</h3>
+                  
+                    <a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
+                
+
+                
+                
             </table>
+
         </form>        
         <br>
         
