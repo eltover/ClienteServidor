@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from Destinos.views import home 
+from Destinos.views import home, get_followers
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
     url('', include('social.apps.django_app.urls', namespace='social')),  # <--
     url(r'^admin/', admin.site.urls),
+     url(r'^followers/' , get_followers , name='followers' ),
 ]

@@ -1,0 +1,56 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="javascripts/jquery.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRmB_YmM39rdmLFNpnAv0pOoGysIXTBsY"></script>
+	<script type="text/javascript" src="javascripts/jquery.googlemap.js"></script>
+</head>
+<body>
+	<div class="container" style="padding-top: 50px;">
+<table class="table">
+  <thead class="thead-light">
+    <tr align="center">
+      <th scope="col">Nombre de Usuario</th>
+      <th scope="col">Ubicación</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for key, value in context.items  %}
+    <tr align="center">
+      <td>{{key}}</td>
+      <td>{{value.2}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<br>
+<hr>
+
+
+<div class="container" align="center">
+	<p class="h3" align="center" style="padding-top: 50px">Mapa con Ubicaciones</p>
+
+		<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1mEJAYBTuc4ZypdbSAeKu9E1qdhy6o5l-" width="640" height="480"></iframe>
+	</div>
+</div>
+	<script type="text/javascript">
+		  $(function() {
+			var locations = JSON.parse('{{locations|safe}}');
+		  	console.log(locations);
+		    $("#map").googleMap();
+
+		    $.each( locations, function( index, value ){
+    		    $("#map").addMarker({
+		    		address: value,
+	    		});
+			});
+
+		  })
+		</script>
+
+</body>
+</html>
