@@ -21,7 +21,7 @@ from Destinos.views import home, get_followers
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home),
+    url(r'^$', home, name='home'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url('', include('social.apps.django_app.urls', namespace='social')),  # <--

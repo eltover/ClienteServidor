@@ -112,9 +112,17 @@
 
                <h3>Twitter</h3>
 
+                
+                    <a href="#"><img src="{% static 'images/twitter.png' %}" alt="twitter" /></a>
+                  
+                      
+                    <div>
+                      <br>
                     <a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
-
-
+                    </div>
+                    <div>
+                    <a href="{% url 'followers' %}">followers</a>
+                    </div>
 
 
 
@@ -128,14 +136,10 @@
 </div>
 
 
-<div id="footer">
-
-	<div id="social_box">
-		<a href="#"><img src="images/facebook.png" alt="facebook" /></a>
-        <a href="#"><img src="images/flickr.png" alt="flickr" /></a>
-        <a href="#"><img src="images/myspace.png" alt="myspace" /></a>
-        <a href="#"><img src="images/twitter.png" alt="twitter" /></a>
-        <a href="#"><img src="images/youtube.png" alt="youtube" /></a>
+  
+    <div id="footer">
+        
+       <div id="social_box"> 
     </div>
 
     <div id="footer_left">
@@ -149,4 +153,5 @@
 </div>
 <!--   Free Website Template by t o o p l a t e . c o m   -->
 </body>
+
 </html>
