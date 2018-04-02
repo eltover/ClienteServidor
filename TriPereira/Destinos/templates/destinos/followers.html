@@ -6,10 +6,27 @@
 <head>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="javascripts/jquery.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRmB_YmM39rdmLFNpnAv0pOoGysIXTBsY"></script>
+	
 	<script type="text/javascript" src="javascripts/jquery.googlemap.js"></script>
 </head>
 <body>
+
+	<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 600px;
+        width: 600px;
+
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
 
 	
 	<div class="container" style="padding-top: 50px;">
@@ -36,19 +53,35 @@
 <div>
     <a href="{% url 'home' %}">Inicio TriPereira</a>
     </div>
+
+<div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 4.00, lng: -72.00},
+          zoom: 5
+        });
+      }
+    </script>
+
+
 <div class="container" align="center">
 	<p class="h3" align="center" style="padding-top: 50px">Mapa con Ubicaciones</p>
 
-		<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1mEJAYBTuc4ZypdbSAeKu9E1qdhy6o5l-" width="640" height="480"></iframe>
+		
 	</div>
-</div>
+</div align="center">
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRmB_YmM39rdmLFNpnAv0pOoGysIXTBsY&callback=initMap"
+    async defer"></script>	
 	<script type="text/javascript">
 		  $(function() {
-			var locations = JSON.parse('{{locations|safe}}');
+			var locations = JSON.parse('{{Ubicaciones}}');
 		  	console.log(locations);
 		    $("#map").googleMap();
 
 		    $.each( locations, function( index, value ){
+		    	console.log (value);
     		    $("#map").addMarker({
 		    		address: value,
 	    		});
@@ -56,6 +89,8 @@
 
 		  })
 		</script>
+
+
 
 </body>
 </html>
