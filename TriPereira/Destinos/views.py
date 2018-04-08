@@ -4,9 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 import twitter
 import json
-
+import pandas as pd
+from sodapy import Socrata
 
 # Create your views here.
 @login_required
@@ -21,6 +25,37 @@ def logout(request):
     """Logs out user"""
     auth_logout(request)
     return render_to_response('index.html', {}, RequestContext(request))
+
+def get_data(request):
+	template = 'destinos/data.html'
+	client = Socrata("www.datos.gov.co", None)
+
+	results = client.get("87tt-fa3a", limit=2000)
+#print results
+	results_df = pd.DataFrame.from_records(results)
+    
+	context = {
+		'results_df': client.get("87tt-fa3a", limit=2000)
+	}
+	return render (request, template, context)
+
+
+def resultdata(request):
+    value = request.POST.get('codigo')
+    value2 = request.POST.get('codigo2')
+    client = Socrata("www.datos.gov.co", None)
+
+    results = client.get("87tt-fa3a", limit=2000)
+#print results
+    results_df = pd.DataFrame.from_records(results)
+    context = {
+        'codigo': value,
+        'codigo2': value2,
+        'results_df': client.get("87tt-fa3a", limit=2000)
+    }
+    template = 'destinos/resultdata.html'
+    return render(request, template, context)
+
 @login_required
 def get_followers(request):
 	template = loader.get_template('destinos/followers.html')

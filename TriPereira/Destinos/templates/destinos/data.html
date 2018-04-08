@@ -1,0 +1,209 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+  <html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+
+
+
+<div id="page">
+    
+        <div id="header">
+          <h1>Inventario Hotelero Rural Salento Quindio </h1>
+            <h2>Listado de hoteles de la zona rural del municipio de salento quindio</h2>
+            
+      </div>
+        
+</div>
+
+<br>
+<br>
+
+<h1 align="center" style="color: #C0C0C0"> &nbsp; &nbsp; &nbsp; HABITACIONES </h1>
+<br>
+<form name="consulta1" method="POST" action= "{% url 'resultdata' %}"> 
+  {% csrf_token %}
+
+   <h3 style="color: #C0C0C0"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Numero de Habitaciones: <input type="text" name="codigo" maxlength="4">
+  <input type="submit" name="Aceptar" value="Aceptar" onsubmit="this.reset()"> </h3>
+
+ </form> 
+<br>
+<br>
+<br>
+
+<h1 style="color: #C0C0C0"> &nbsp; &nbsp; &nbsp; PRECIOS </h1>
+<br>
+
+ <form name="consulta2" method="POST" action= "{% url 'resultdata' %}"> 
+  {% csrf_token %}
+  <h3 style="color: #C0C0C0"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Valor en Pesos: 
+     <select name="codigo2">
+     <option value="6.000.oo"> 6.000</option>
+     <option value="10.000.oo"> 10.000</option>
+     <option value="15.000.oo"> 15.000</option>
+     <option value="20.000.oo"> 20.000</option>
+     <option value="23.000.oo"> 23.000</option>
+     <option value="25.000.oo"> 25.000</option>
+     <option value="30.000.oo"> 30.000</option>
+     <option value="40.000.oo"> 40.000</option>
+     <option value="45.000.oo"> 45.000</option> 
+     <option value="50.000.oo"> 50.000</option>
+     <option value="65.000.oo"> 65.000</option>
+     <option value="70.000.oo"> 70.000</option>
+     <option value="75.000.oo"> 75.000</option>
+     
+    </select>
+  <input type="submit" name="Aceptar" value="Aceptar" onsubmit="this.reset()">
+</h3>
+</form> 
+<br>
+<br>
+<br>
+
+<TABLE  width=150% height=10>
+  <th width=150>Id</th>
+  <th width=170>Tipo</th>
+  <th width=90>Habitaciones</th>
+  <th width=50>Bñ_Int</th>
+  <th width=60>Bñ_Ext</th>
+  <th width=60>Cam_S</th>
+  <th width=60>Cam_D</th>
+  <th width=50>Cam_C</th>
+  <th width=50>Ttl_Per</th>
+  <th width=60>Empl_P</th>
+  <th width=70>Empl_T</th>
+  <th width=100>Tarifa</th>
+  <th width=150>Reg_Nacional</th>
+  <th width=300>Correo_Electronico</th>
+  <th width=130>Celular_Fijo</th>
+  <th>Direccion</th>
+</TABLE>
+ 
+  {% for key in results_df %}
+    <div class="row">
+    <div class="socrata-table frozen-columns">
+      <TABLE  width=150% height=10>
+
+
+
+      <div>
+        <TD width=30 align=center bgcolor="#D3D3D3">
+        {{key.orden}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=250 align=center bgcolor="#D3D3D3">
+        {{key.tipo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=80 align=center bgcolor="#D3D3D3">
+        {{key.habitaciones}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.banos_interno}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.bano_externo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.camas_sencillas}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.camas_dobles}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.camascorriente}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.total_personas}}
+        </TD>
+      </div>
+
+      <div>
+        <TD  width=50 align=center bgcolor="#D3D3D3">
+        {{key.empleos_de_planta}}
+        </TD>
+      </div>
+
+      <div>
+        <TD  width=50 align=center bgcolor="#D3D3D3">
+        {{key.empleos_temporal}}
+        </TD>
+      </div>
+
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key.tarifa}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key.registro_nacional_de_turismo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=300 align=center bgcolor="#D3D3D3">
+        {{key.correo_electronico}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key.celular_fijo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=300 align=center bgcolor="#D3D3D3">
+        {{key.direccion}}
+        </TD>
+      </div>
+      </TABLE>
+        
+    </div>
+</div>
+  
+  {% endfor %}
+  
+  
+<br>
+
+
+<div id="bar">
+    <ul>
+     <li><a href="{% url 'home' %}">Inicio TriPereira</a></li>
+     </ul>
+ </div> 
+</body>
+</html>

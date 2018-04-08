@@ -1,0 +1,288 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+  <html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+
+
+
+<div id="page">
+    
+        <div id="header">
+          <h1>Inventario Hotelero Rural Salento Quindio </h1>
+            <h2>Listado de hoteles de la zona rural del municipio de salento quindio</h2>
+            
+      </div>
+        
+</div>
+
+
+
+<TABLE  width=150% height=10>
+  <th width=150>Id</th>
+  <th width=170>Tipo</th>
+  <th width=100>Habitaciones</th>
+  <th width=50>Bñ_Int</th>
+  <th width=60>Bñ_Ext</th>
+  <th width=60>Cam_S</th>
+  <th width=60>Cam_D</th>
+  <th width=50>Cam_C</th>
+  <th width=60>Ttl_Per</th>
+  <th width=60>Empl_P</th>
+  <th width=70>Empl_T</th>
+  <th width=100>Tarifa</th>
+  <th width=150>Reg_Nacional</th>
+  <th width=300>Correo_Electronico</th>
+  <th width=130>Celular_Fijo</th>
+  <th>Direccion</th>
+</TABLE>
+
+
+
+
+{% for key in results_df %}
+	{% if key.habitaciones == codigo and codigo2 == None %}
+                    
+
+    <div class="row">
+    <div class="socrata-table frozen-columns">
+      <TABLE  width=150% height=10>
+
+
+      <div>
+        <TD width=30 align=center bgcolor="#D3D3D3">
+        {{key.orden}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=250 align=center bgcolor="#D3D3D3">
+        {{key.tipo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=80 align=center bgcolor="#D3D3D3">
+        {{key.habitaciones}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.banos_interno}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.bano_externo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.camas_sencillas}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.camas_dobles}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.camascorriente}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key.total_personas}}
+        </TD>
+      </div>
+
+      <div>
+        <TD  width=50 align=center bgcolor="#D3D3D3">
+        {{key.empleos_de_planta}}
+        </TD>
+      </div>
+
+      <div>
+        <TD  width=50 align=center bgcolor="#D3D3D3">
+        {{key.empleos_temporal}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key.tarifa}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key.registro_nacional_de_turismo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=300 align=center bgcolor="#D3D3D3">
+        {{key.correo_electronico}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key.celular_fijo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=300 align=center bgcolor="#D3D3D3">
+        {{key.direccion}}
+        </TD>
+      </div>
+
+      </TABLE>
+        
+    </div>
+</div>
+
+  {% endif %}
+  {% endfor %}
+  
+
+{% for key2 in results_df %}
+  {% if key2.tarifa == codigo2 and codigo == None %}
+                    
+
+    <div class="row" style="color:black">
+    <div class="socrata-table frozen-columns">
+      <TABLE  width=150% height=10 align=center>
+
+
+      <div>
+        <TD width=30 align=center bgcolor="#D3D3D3">
+        {{key2.orden}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=250 align=center bgcolor="#D3D3D3">
+        {{key2.tipo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=80 align=center bgcolor="#D3D3D3">
+        {{key2.habitaciones}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key2.banos_interno}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key2.bano_externo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key2.camas_sencillas}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key2.camas_dobles}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key2.camascorriente}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=50 align=center bgcolor="#D3D3D3">
+        {{key2.total_personas}}
+        </TD>
+      </div>
+
+      <div>
+        <TD  width=50 align=center bgcolor="#D3D3D3">
+        {{key2.empleos_de_planta}}
+        </TD>
+      </div>
+
+      <div>
+        <TD  width=50 align=center bgcolor="#D3D3D3">
+        {{key2.empleos_temporal}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key2.tarifa}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key2.registro_nacional_de_turismo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=300 align=center bgcolor="#D3D3D3">
+        {{key2.correo_electronico}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=100 align=center bgcolor="#D3D3D3">
+        {{key2.celular_fijo}}
+        </TD>
+      </div>
+
+      <div>
+        <TD width=300 align=center bgcolor="#D3D3D3">
+        {{key2.direccion}}
+        </TD>
+      </div>
+
+      </TABLE>
+        
+    </div>
+</div>
+
+  {% endif %}
+  {% endfor %}
+  
+
+
+<br>
+
+<div id="bar">
+    <ul>
+     <li><a href="{% url 'home' %}">Inicio TriPereira</a></li>
+     <li><a href="{% url 'data' %}">Otra Consulta</a></li>
+    </ul>
+ </div> 
+</body>
+</html>
+

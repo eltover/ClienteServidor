@@ -38,7 +38,7 @@
                 <ul class="navigation">
                     <li><a href="#home" class="selected menu_01">Home</a></li>
                     <li><a href="#aboutus" class="menu_02">Nosotros</a></li>
-                    <li><a href="#Contact Information" class="menu_02">Agregar Datos</a></li>
+                    <li><a href="#Contact Information" class="menu_02">Datos</a></li>
 				</ul>
             </div>
 		</div> <!-- end of sidebar -->
@@ -113,7 +113,7 @@
                <h3>Twitter</h3>
 
                 
-                    <a href="#"><img src="{% static 'images/twitter.png' %}" alt="twitter" /></a>
+                    <a><img src="{% static 'images/twitter.png' %}" alt="twitter" /></a>
                   
                       
                     <div>
@@ -122,6 +122,13 @@
                     </div>
                     <div>
                     <a href="{% url 'followers' %}">followers</a>
+                    </div>
+
+                    <div>
+                      <br>
+                     <a><img src="{% static 'images/hotel.png' %}"/></a> 
+                     <br>
+                    <a href="{% url 'data' %}">Hoteles Del Quindio-Salento</a>
                     </div>
 
 
