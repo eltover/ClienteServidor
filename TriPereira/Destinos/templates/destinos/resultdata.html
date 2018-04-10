@@ -7,6 +7,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <script src="plotly-1.20.4.min.js"></script>
 </head>
 <body>
 
@@ -23,6 +26,13 @@
 </div>
 
 
+<br>
+
+
+
+
+<br>
+
 
 <TABLE  width=150% height=10>
   <th width=150>Id</th>
@@ -30,8 +40,8 @@
   <th width=100>Habitaciones</th>
   <th width=50>Bñ_Int</th>
   <th width=60>Bñ_Ext</th>
-  <th width=60>Cam_S</th>
-  <th width=60>Cam_D</th>
+  <th width=50>Cam_S</th>
+  <th width=50>Cam_D</th>
   <th width=50>Cam_C</th>
   <th width=60>Ttl_Per</th>
   <th width=60>Empl_P</th>
@@ -44,17 +54,19 @@
 </TABLE>
 
 
-
+<!-- ESTA ES LA PRIMERA CONSULTA -->
 
 {% for key in results_df %}
 	{% if key.habitaciones == codigo and codigo2 == None %}
-                    
+             
+
+                 
 
     <div class="row">
     <div class="socrata-table frozen-columns">
       <TABLE  width=150% height=10>
 
-
+    
       <div>
         <TD width=30 align=center bgcolor="#D3D3D3">
         {{key.orden}}
@@ -159,6 +171,11 @@
   {% endif %}
   {% endfor %}
   
+
+<br>
+
+
+<!-- ESTA ES LA SEGUNDA CONSULTA -->
 
 {% for key2 in results_df %}
   {% if key2.tarifa == codigo2 and codigo == None %}
@@ -274,8 +291,122 @@
   {% endfor %}
   
 
+<br>
+
+
+
+<!-- GRAFICAS DE LA PRIMERA CONSULTA -->
+
+{% if codigo2 == None %}
+
+<div id="HOTELES" style="height: 600px; width: 800px;" class="plotly-graph-div"></div>
+  <script>
+ 
+  var trace1 = 
+    {
+      x: [{% for r in results_df %}
+          {% for t in y %} 
+         {% if r.habitaciones == codigo and r.tipo == t %}
+         '{{t}}', 
+         {% endif %}
+         {% endfor %}
+         {% endfor %}],
+      y: [{% for r in results_df %}          
+         {% if r.habitaciones == codigo  %}
+         {{r.habitaciones}}, 
+         {% endif %}         
+         {% endfor %}],
+      name: 'Numero de Habitaciones',
+      type: 'bar'
+    };  
+
+  var trace2 = {
+  x: [{% for r in results_df %}
+          {% for t in y %} 
+         {% if r.habitaciones == codigo and r.tipo == t %}
+         '{{t}}', 
+         {% endif %}
+         {% endfor %}
+         {% endfor %}],
+  y: [{% for r in results_df %}           
+         {% if r.habitaciones == codigo  %}
+         {{r.total_personas}}, 
+         {% endif %}         
+         {% endfor %}],
+  name: 'Capacidad de Personas',
+  type: 'bar'
+  };
+  
+
+  var data = [trace1, trace2];
+
+  var layout = {barmode: 'group'};
+
+  Plotly.newPlot('HOTELES',  data, layout);
+</script> 
+
+{% endif %}
+
+
+
+
+<!-- GRAFICAS DE LA SEGUNDA CONSULTA -->
+
+{% if codigo == None %}
+
+<div id="HOTELES" style="height: 600px; width: 800px;" class="plotly-graph-div"></div>
+  <script>
+ 
+  var trace1 = 
+    {
+      x: [{% for r in results_df %}
+          {% for t in y %} 
+         {% if r.tarifa == codigo2 and r.tipo == t %}
+         '{{t}}', 
+         {% endif %}
+         {% endfor %}
+         {% endfor %}],
+      y: [{% for r in results_df %}          
+         {% if r.tarifa == codigo2  %}
+         {{r.habitaciones}}, 
+         {% endif %}         
+         {% endfor %}],
+      name: 'Numero de Habitaciones',
+      type: 'bar'
+    };  
+
+  var trace2 = {
+  x: [{% for r in results_df %}
+          {% for t in y %} 
+         {% if r.tarifa == codigo2 and r.tipo == t %}
+         '{{t}}', 
+         {% endif %}
+         {% endfor %}
+         {% endfor %}],
+  y: [{% for r in results_df %}           
+         {% if r.tarifa == codigo2  %}
+         {{r.total_personas}}, 
+         {% endif %}         
+         {% endfor %}],
+  name: 'Capacidad de Personas',
+  type: 'bar'
+  };
+  
+
+  var data = [trace1, trace2];
+
+  var layout = {barmode: 'group'};
+
+  Plotly.newPlot('HOTELES',  data, layout);
+</script> 
+
+{% endif %}
+
 
 <br>
+
+
+
 
 <div id="bar">
     <ul>

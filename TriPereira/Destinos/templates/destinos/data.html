@@ -25,6 +25,8 @@
 <br>
 <br>
 
+<!--PRIMERA CONSULTA -->
+
 <h1 align="center" style="color: #C0C0C0"> &nbsp; &nbsp; &nbsp; HABITACIONES </h1>
 <br>
 <form name="consulta1" method="POST" action= "{% url 'resultdata' %}"> 
@@ -37,6 +39,9 @@
 <br>
 <br>
 <br>
+
+
+<!-- SEGUNDA CONSULTA -->
 
 <h1 style="color: #C0C0C0"> &nbsp; &nbsp; &nbsp; PRECIOS </h1>
 <br>
@@ -86,6 +91,10 @@
   <th>Direccion</th>
 </TABLE>
  
+
+
+<!-- CONTENIDO DE LOS DATOS  -->
+
   {% for key in results_df %}
     <div class="row">
     <div class="socrata-table frozen-columns">
