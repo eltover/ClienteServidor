@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from base64 import b64decode
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Destinos',
     'social.apps.django_app.default',
+    'django_eventstream',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_grip.GripMiddleware',
 ]
 
 ROOT_URLCONF = 'TriPereira.urls'
@@ -143,3 +146,7 @@ OAUTH_TOKEN_SECRET='vEnTrRE7woo2JZX03NnexdpvHJjhOmGpnFyLJWL2CI4vx'
 
 SOCIAL_AUTH_TWITTER_KEY = 'M2nC2Z5iHjIINVL19AqRWt4dl'
 SOCIAL_AUTH_TWITTER_SECRET = 'saxQkjHJq09QDR8zS3j2IEYq8icJHOHez0bG2GWWwbFgwEkFeI'
+
+#CHAT
+
+GRIP_URL= 'https://api.fanout.io/realm/{22776885}?iss={22776885}&key=base64:{oVGZ9YKD6pyraF1tpfFtAw==}'   

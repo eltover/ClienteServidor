@@ -2,14 +2,20 @@
 from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.template import loader
-from django.shortcuts import render
+from django.db import IntegrityError
+from django.shortcuts import render, redirect
+from .models import ChatRoom, ChatMessage
 from django.shortcuts import HttpResponse
 from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 import plotly.offline as opy
 import plotly.graph_objs as go
 import twitter
+from django.db import transaction
+from django_eventstream import send_event
+from django_eventstream import get_current_event_id
 import json
 import pandas
 import pandas as pd
@@ -81,6 +87,85 @@ def resultdata(request):
     }
     template = 'destinos/resultdata.html'
     return render(request, template, context)
+
+
+#CHAT   
+
+def chat(request, room_id=None):
+    user = request.GET.get('user')
+    if user:
+        if not room_id:
+            return redirect('/default?' + request.GET.urlencode())
+        last_id = get_current_event_id(['room-%s' % room_id])    
+        try:
+            room = ChatRoom.objects.get(eid=room_id)
+            cmsgs = ChatMessage.objects.filter(
+                room=room).order_by('-date')[:50]
+            msgs = []
+            for msg in reversed(cmsgs):
+                msgs.append(msg.to_data())
+        except ChatRoom.DoesNotExist:
+            msgs = []
+        context = {}
+        context['room_id'] = room_id
+        context['last_id'] = last_id
+        context['messages'] = msgs
+        context['user'] = user
+        return render(request, 'destinos/chat.html', context)
+    else:
+        context = {}
+        context['room_id'] = room_id or 'default'
+        return render(request, 'destinos/loginchat.html', context)
+
+
+def messages(request, room_id):
+    if request.method == 'GET':
+        last_id = get_current_event_id(['room-%s' % room_id])
+
+        try:
+            room = ChatRoom.objects.get(eid=room_id)
+            cmsgs = ChatMessage.objects.filter(
+                room=room).order_by('-date')[:50]
+            msgs = [msg.to_data() for msg in cmsgs]
+        except ChatRoom.DoesNotExist:
+            msgs = []
+
+        body = json.dumps({
+            'messages': msgs,
+            'last-event-id': last_id
+        }, cls=DjangoJSONEncoder) + '\n'
+        return HttpResponse(body, content_type='application/json')
+    elif request.method == 'POST':
+        try:
+            room = ChatRoom.objects.get(eid=room_id)
+        except ChatRoom.DoesNotExist:
+            try:
+                room = ChatRoom(eid=room_id)
+                room.save()
+            except IntegrityError:
+                # someone else made the room. no problem
+                room = ChatRoom.objects.get(eid=room_id)
+
+        mfrom = request.POST['from']
+        text = request.POST['text']
+        with transaction.atomic():
+            msg = ChatMessage(room=room, user=mfrom, text=text)
+            msg.save()
+            send_event('room-%s' % room_id, 'message', msg.to_data())
+        body = json.dumps(msg.to_data(), cls=DjangoJSONEncoder) + '\n'
+        return HttpResponse(body, content_type='application/json')
+    else:
+        return HttpResponseNotAllowed(['POST'])       
+
+
+
+#LOGIN_CHAT
+
+def loginchat(request):
+    template = 'destinos/loginchat.html'  
+    context = locals()        
+    
+    return render (request, template, context)    
 
 
 #TWITTER

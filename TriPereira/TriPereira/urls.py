@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+import django_eventstream
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from Destinos.views import home, get_followers, get_data, resultdata
+from Destinos.views import home, get_followers, get_data, resultdata, chat, loginchat, messages
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,6 +29,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^followers/' , get_followers , name='followers' ),
     url(r'^data/' , get_data , name='data' ),
+    url(r'^chat/' , chat , name='chat' ),
+    url(r'^loginchat/' , loginchat , name='loginchat' ),
     url(r'^resultdata/' , resultdata , name='resultdata' ),
-
+    url(r'^(?P<room_id>[^/]+)$', chat),
+    url(r'^rooms/(?P<room_id>[^/]+)/messages/$', messages),
+    url(r'^events/', include(django_eventstream.urls)),
 ]
